@@ -7,6 +7,14 @@ from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+import os
+from os.path import join, dirname
+from dotenv import load_dotenv
+
+load_dotenv(verbose=True)
+
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 # Seleniumをあらゆる環境で起動させるChromeオプション
 options = Options()
@@ -43,8 +51,8 @@ def scrape(url):
   driver.get(url)
 
   # 後で環境変数化！
-  my_email = 'hanasouhei1211@gmail.com'
-  my_password = '@5dyR3VYX2Yujpi'
+  my_email = os.environ.get('USER_EMAIL')
+  my_password = os.environ.get('USER_PASSWORD')
   login(my_email, my_password)
 
   # 求人を検索
